@@ -1,0 +1,11 @@
+﻿@model Manager.Models.Category
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<select asp-for="ParentCategoryId" asp-items="ViewBag.ParentCategoryId" class="form-controll">
+
+</select>
+

@@ -3,14 +3,32 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var items = new List<SelectListItem>();
+    items.Add(new SelectListItem()
+    {
+        Text = "Mục 1",
+        Value = "gt1"
+    });
+     items.Add(new SelectListItem()
+    {
+        Text = "Mục 2",
+        Value = "gt2"
+    });
+     items.Add(new SelectListItem()
+    {
+        Text = "Mục 3",
+        Value = "gt3"
+    });
 }
+
 
 
 <main class="page-content">
     <div class="page-header">
         <p class="fw">Danh sách danh mục</p>
         <!-- Button HTML (to Trigger Modal) -->
-
+        <select asp-items="items"></select>
         <button type="button" href="#myModal" role="button" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
 
         <!-- Modal HTML -->
