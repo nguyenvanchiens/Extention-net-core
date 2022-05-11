@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Manager.Models.Category>;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<main class="page-content">
+    <div class="page-header">
+        <p class="fw">Danh sách danh mục</p>
+        <!-- Button HTML (to Trigger Modal) -->
+
+        <button type="button" href="#myModal" role="button" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
+
+        <!-- Modal HTML -->
+    </div>
+    <div class="page-search">
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <span><i b-eginzb9zup="" class="fa fa-search" aria-hidden="true"></i></span>
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="input-groups">
+                            <form method="get" style="display:flex">
+                                <label style="margin-right:10px" for="">Tên Nhân Viên</label>
+                                <div>
+                                    <div>
+                                        <input type="text" name="filter">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-content-table">
+        <table class="table table-bordered order-column" style="width:100%" id="dataTable" cellpadding=0>
+            <thead>
+                <tr>
+                    <th scope="col">Mã Danh mục</th>
+                    <th scope="col">Tên danh mục</th>
+                    @* <th scope="col">Danh mục cha</th>
+                        <th scope="col">Id mục cha</th>*@
+                    <th scope="col" class="text-center">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    await RenderCategory(item, 0);
+                }
+            </tbody>
+        </table>
+    </div>
+</main>
+@* <div class="alert alert-primary" id="notify" role="alert">
+    Thêm Mới Thành Công
+    </div>*@
+@section Scripts {
+<script>
+
+</script>
+
+}
+@{
+    async Task RenderCategory(Category item, int level)
+    {
+        string prefix = string.Concat(Enumerable.Repeat("&nbsp;&nbsp;&nbsp;&nbsp;", level));
+
+        <tr>
+            <td>@Html.Raw(@prefix) @item.CategoryId</td>
+            <td>@item.CategoryName</td>
+            <td>
+                <a class="btn btn-primary">Sửa</a>
+            </td>
+        </tr>
+        @if (item.CategoryChildren?.Count > 0)
+        {
+            foreach (var cCategory in item.CategoryChildren)
+            {
+                await RenderCategory(cCategory, level + 1);
+            }
+        }
+    }
+}
+
+
+
